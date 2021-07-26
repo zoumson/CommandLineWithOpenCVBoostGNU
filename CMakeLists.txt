@@ -21,17 +21,17 @@ set (CMAKE_CXX_FLAGS "-DPCL_ONLY_CORE_POINT_TYPES=ON -DNO_EXPLICIT_INSTANTIATION
 find_package( OpenCV REQUIRED )
 include_directories( ${OpenCV_INCLUDE_DIRS})
 #SET(Boost_USE_STATIC_LIBS ON)
-#SET(Boost_USE_SHARED_LIBS ON)
-#set(CMAKE_USE_PTHREADS_INIT true)
-#set(CMAKE_USE_PTHREADS_INIT ON)
+SET(Boost_USE_SHARED_LIBS ON)
+set(CMAKE_USE_PTHREADS_INIT true)
+set(CMAKE_USE_PTHREADS_INIT ON)
 
-#find_package(Threads REQUIRED )
-#find_package(Boost COMPONENTS program_options log log_setup REQUIRED)
+find_package(Threads REQUIRED )
+find_package(Boost COMPONENTS program_options  REQUIRED)
 #find_package(Threads)
 
-#if(Boost_FOUND)
-#    include_directories(${Boost_INCLUDE_DIRS}) 
-#endif()
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS}) 
+endif()
 ############### My Files #########################
 
 #Bring the headers

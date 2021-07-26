@@ -15,6 +15,7 @@ endfunction()
 
 make_exe(gnu "")
 make_exe(opencv "${OpenCV_LIBS}")
+make_exe(boost "${Boost_LIBRARIES}")
 #set(demo3_libs  lib1 lib2)
 #make_exe(demo3 "${demo3_libs}")
 

@@ -12,8 +12,8 @@
 [![Stack Overflow][stackoverflow-shield]][stackoverflow.com/users/11175375/adam]
 [![Leetcode][leetcode-shield]][eetcode.com/Hard_Code/]
 -->
-## Detection of a car license plate in a parking lot
-![image](https://user-images.githubusercontent.com/38358621/120076768-da6dd780-c0d9-11eb-8723-8286ad1d293e.png)
+## Command line parser using gnu, opencv, and boost
+<img width="469" alt="parse" src="https://user-images.githubusercontent.com/38358621/127037754-bcaa022a-220d-4fcc-9117-75a84e47f91b.png">
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
@@ -55,22 +55,17 @@
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-LPR (License Plate Recognition), also known as ANPR (Automatic Number-Plate Recognition) is an image-processing technology used to identify vehicles by their license plates.
+Many of the cpp programs that you’ll write will end up as binaries that need to be run from a command prompt. Any nontrivial command line should support a collection of basic features:
 
-The system uses illumination and an infrared camera to take the image of the front or rear of the vehicle, then an image-processing software analyzes the images and extracts the license plate information.
+* Parsing of command-line arguments
 
-Here's why LDR is valuable:
+* Generation of error messages in response to incorrect inputs
 
-* First of all, safety: the license plate serves as a virtual ticket, and grants free-flow access, preventing stolen cars or ticket swapping. Since ticket and license plate have to match at entry and exit, it is almost impossible to pursue fraudulent behaviors. With LPR you can also easily manage black lists and be in control of all the events and movements at entrance and exit.
+* Help for all the available options
 
-* LPR is highly reliable: in case of lost tickets, it is easy to determine the actual entry time from the license plate number.
+It’s tedious and error-prone to code all of this manually for every program you write. This repository provides the Command Sample code in three different aspects, namely gnu, opencv, and boost, which simplifies the command line configuration by letting you declare your command-line options in one place and by deriving all of the above functionality from these declarations.  
 
-* In addition, LPR also allows multiple integrations and customizations, especially for contract parking where the recurrent user can smoothly access and egress the car park without any titles other than the vehicle license plate.
-
-* With LPR, it is also possible to enter with a pre-paid ticket, or use cashless solutions. Another benefit offered by LPR at entries/exits is the possibility to book a parking space in advance, to ensure the driver a hassle-free experience.
-
-* Last but not least, LPR can be retrofitted and added to existing solutions.
-
+Command is simple to use for simple applications but also scales well as your needs grow more complex. In particular, Command provides a sophisticated subcommand mode that groups related commands together as the complexity of your user interface grows.
 A list of commonly used resources that I find helpful are listed in the acknowledgements.
 
 <!--Built with -->
@@ -81,6 +76,7 @@ A list of commonly used resources that I find helpful are listed in the acknowle
 * [opencv](https://opencv.org/)
 * [cmake](https://cmake.org/)
 * [gnu](https://www.gnu.org/)
+* [boost](https://www.boost.org/)
 
 <br>
 
@@ -88,8 +84,6 @@ A list of commonly used resources that I find helpful are listed in the acknowle
 
 ### Folders
 
-* [include/](include/): c++ header files.
-* [resource/](resource/): xml and input images.
 * [src/](src/): c++ definitions.
 
 
@@ -100,57 +94,17 @@ A list of commonly used resources that I find helpful are listed in the acknowle
 .
 ├── CMakeLists.txt
 ├── include
-│   ├── ConstantsDetectChars.h
-│   ├── ConstantsDetectPlates.h
-│   ├── ConstantsIdentifyPlate.h
-│   ├── ConstantsPreprocess.h
-│   ├── DetectChars.h
-│   ├── DetectPlates.h
-│   ├── IdentifyPlate.h
-│   ├── PossibleChar.h
-│   ├── PossiblePlate.h
-│   ├── Preprocess.h
-│   └── ShowLicensePlateArgs.h
 ├── README.md
-├── ressource
-│   ├── image
-│   │   ├── image10.png
-│   │   ├── image11.png
-│   │   ├── image12.png
-│   │   ├── image13.png
-│   │   ├── image14.png
-│   │   ├── image15.png
-│   │   ├── image16.png
-│   │   ├── image1.png
-│   │   ├── image2.png
-│   │   ├── image3.png
-│   │   ├── image4.png
-│   │   ├── image5.png
-│   │   ├── image6.png
-│   │   ├── image7.png
-│   │   ├── image8.png
-│   │   ├── image9.png
-│   │   ├── imgOriginalScene.png
-│   │   ├── test2.png
-│   │   └── test.png
-│   └── xml
-│       ├── classifications.xml
-│       └── images.xml
 └── src
-    ├── demo
-    │   ├── CMakeLists.txt
-    │   └── Demo.cpp
-    └── lib
-        ├── CMakeLists.txt
-        └── plate
-            ├── DetectChars.cpp
-            ├── DetectPlates.cpp
-            ├── IdentifyPlate.cpp
-            ├── PossibleChar.cpp
-            ├── PossiblePlate.cpp
-            └── Preprocess.cpp
+    ├── boost
+    │   └── boost.cpp
+    ├── CMakeLists.txt
+    ├── gnu
+    │   └── gnu.cpp
+    └── opencv
+        └── opencv.cpp
 
-8 directories, 43 files
+5 directories, 6 files
 
 ```
 
@@ -158,7 +112,7 @@ A list of commonly used resources that I find helpful are listed in the acknowle
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is a sample code of how you may detect a license plate on a image.
+This is a sample code of how you may configure a command line parser.
 To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
@@ -168,84 +122,160 @@ This is an example of how to list things you need to use the software and how to
   ```sh
   sudo apt-get install cmake
   ```
- * CPP standard: `CMAKE_CXX_STANDARD 17`
- * [Install](https://askubuntu.com/questions/342202/failed-to-load-module-canberra-gtk-module-but-already-installed) `gtk` and `gtk3` module to access `canberra-gtk-module` used by `opencv imshow`
- 
+* [boost](https://stackoverflow.com/questions/8430332/uninstall-boost-and-install-another-version)
   ```sh
-  sudo apt install libcanberra-gtk-module libcanberra-gtk3-module
+  cd /opt
+  mkdir boost
+  sudo apt-get -y install build-essential g++ python-dev autotools-dev libicu-dev libbz2-dev
+  wget http://downloads.sourceforge.net/project/boost/boost/1.76.0/boost_1_76_0.tar.gz
+  tar -zxvf boost_1_76_0.tar.gz
+  cd boost_1_76_0
+  # get the no of cpucores to make faster
+  cpuCores=`cat /proc/cpuinfo | grep "cpu cores" | uniq | awk '{print $NF}'`
+  echo "Available CPU cores: "$cpuCores
+  ./bootstrap.sh  # this will generate ./b2
+  sudo ./b2 --with=all -j $cpuCores install
   ```
+ * Check boost version
+  ```sh
+  cat /usr/local/include/boost/version.hpp | grep "BOOST_LIB_VERSION"
+  ```
+ * Result
+  ```sh
+  // BOOST_LIB_VERSION must be defined to be the same as BOOST_VERSION
+  #define BOOST_LIB_VERSION "1_76_0"
+  ```
+* opencv4
+
+ *Installation*
+ ```sh
+ sudo su
+ ```
+ ```sh
+git clone https://github.com/zoumson/OpencvInstall.git     \
+&& cd OpencvInstall && chmod +x install.sh && ./install.sh
+ ```  
 
 ### Installation
 
 1. Install first `opencv4` cpp libraries at [https://opencv.org/](https://opencv.org/)
 2. Clone the repo
    ```sh
-   git clone https://github.com/zoumson/LicensePlateDetection.git
+   git clone https://github.com/zoumson/CommandLineWithOpenCVBoostGNU.git
    ```
 3. Go to the project directory source
    ```sh
-   cd LicensePlateDetection
+   cd CommandLineWithOpenCVBoostGNU
    ```
-4. Create empty directories `build`, `lib`, `result` and `bin`
+4. Create empty directories `build`, and `bin`
    ```sh
-   mkdir build && mkdir lib && mkdir bin && mkdir result && cd result && mkdir image && cd ..
+   mkdir build && mkdir bin
    ```
-5. Generate the library `libplate.so` and move it to `lib` and the exectutable `demo` and move it to `bin`
+5. Generate the exectutables and move it to `bin`
    ```sh
    cd build && cmake .. && make && cd ..
-   ```
-6. Install the library `libplate.so` to `/usr/lib` 
-   ```sh
-   cd build && sudo make install && cd ..
-   ```   
+   ``` 
 <!-- USAGE EXAMPLES -->
 ### Usage
-1. Command line arguments
-<br>
+1. GNU
+* Command line arguments 
+```
+#########################################################################
+./bin/gnu [options]
+[options]
+[O]	-f [Parameter #1]		First paramter is a floating number.
+[O]	-s [Parameter #2]		Second parameter has default value [5].
+[O]	-t [Parameter #3]		Third parameter has enabling feature [Boolean Type].
+[O]	-o [Parameter #4]		Fourth parameter has enabling feature [Boolean Type].
+[M]	-i [Parameter #5]		Fith parameter is a required string.
+[O]	-x [Parameter #6]		Sixth parameter has a set of options with default value[START].
+[O]	-h 
 
 ```
-Car license plate detection
-Usage: demo [params] 
-
-        -?, -h, --help, --usage (value:true)
-                show help message
-        -c, --classifier (value:./ressource/xml/classifications.xml)
-                input classifier path
-        --ext, -n (value:png)
-                save image detected with detected plate extension
-        -i, --image (value:<none>)
-                input image path
-        --name, -p (value:image)
-                save image detected with detected plate name
-        -p, --path (value:./result/image/)
-                save image detected with detected plate path
-        -s, --show (value:false)
-                show detection steps
-        --save, -v (value:false)
-                save image with detected plate
-        -t, --train (value:./ressource/xml/images.xml)
-                input trained images path
+* Run with  `gnu`
+```
+./bin/gnu -f 11.5 -t -i github -x end
+```
+* Output
+```
+[First] parameter is set to [11.500000]
+[Second] parameter is set to [5]
+[Third] parameter is set to [true]
+[Fourth] parameter is set to [false]
+[Fith] parameter is set to [github]
+[Sixth] parameter is set to [END]
 
 ```
 
-<br>
 
-2. Run with an image in `./ressource/image`
+2. OpenCV
+* Command line arguments 
 ```
-./bin/demo -i=./ressource/image/image6.png -v=true
+#########################################################################
+Usage: opencv [params] 
+
+	-?, -h, --help, --usage (value:true)
+		show help message
+	-f, --first (value:11.5)
+		First paramter is a floating number.
+	--fith, -i (value:<none>)
+		Fith parameter is a required string.
+	--fourth, -o (value:false)
+		Fourth parameter has enabling feature [Boolean Type].
+	-s, --second (value:5)
+		Second parameter has default value [5].
+	--sixth, -x (value:1)
+		Sixth parameter has a set of options with default value[1].
+	-t, --third (value:false)
+		Third parameter has enabling feature [Boolean Type].
+```
+* Run with  `opencv`
+```
+./bin/opencv -f 11.5 -t -i github -x 3
+```
+* Output
+```
+[First] parameter is set to [11.500000]
+[Second] parameter is set to [5]
+[Third] parameter is set to [true]
+[Fourth] parameter is set to [false]
+[Fith] parameter is set to [github]
+[Sixth] parameter is set to [END]
+
 ```
 
-<br>
 
-## Before detection
 
- ![image6](https://user-images.githubusercontent.com/38358621/120063777-7cba9a80-c09b-11eb-8e14-82b2323ecd44.png)
- 
- <br>
- 
-## After detection: image saved as `image_29_05_2021_16_25_27`
+3. Boost
+* Command line arguments 
+```
+./bin/boost [options]:
+  -h [ --help ]                   Show usage
+  -f [ --first ] arg              First paramter is a floating number.
+  -s [ --second ] arg (=5)        Second parameter has default value [5].
+  -t [ --third ] [=arg(=1)] (=0)  Third parameter has enabling feature [Boolean
+                                  Type].
+  -o [ --fourth ] [=arg(=1)] (=0) Fourth parameter has enabling feature 
+                                  [Boolean Type].
+  -i [ --fith ] arg               Fith parameter is a required string.
+  -x [ --sixth ] arg (=0)         Sixth parameter has a set of options with 
+                                  default value[START].
+```
 
-![image_29_05_2021_16_25_27](https://user-images.githubusercontent.com/38358621/120063750-4bda6580-c09b-11eb-8b9b-394f082a73a5.png)
+* Run with  `boost`
+```
+./bin/boost -f 11.5 -t -i github -x 3
+```
+* Output
+```
+[First] parameter is set to [11.500000]
+[Second] parameter is set to [5]
+[Third] parameter is set to [true]
+[Fourth] parameter is set to [false]
+[Fith] parameter is set to [github]
+[Sixth] parameter is set to [END]
+
+```
 
 <br>
 
@@ -284,7 +314,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Adama Zouma - <!-- [@your_twitter](https://twitter.com/your_username) -->- stargue49@gmail.com
 
-Project Link: [https://github.com/zoumson/LicensePlateDetection](https://github.com/zoumson/LicensePlateDetection.git)
+Project Link: [https://github.com/zoumson/CommandLineWithOpenCVBoostGNU](https://github.com/zoumson/CommandLineWithOpenCVBoostGNU.git)
 
 
 

@@ -277,12 +277,9 @@ Usage: opencv [params]
 
 ```
 
-<br>
-
-## License plate number `NYSJ`
-3. Back to the initial file structure configuration
+4. Back to the initial file structure configuration
    ```sh
-   rm -r bin build lib result 
+   rm -r bin build 
    ```
 <!-- ROADMAP -->
 ## Roadmap
